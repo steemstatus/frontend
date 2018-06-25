@@ -27,7 +27,7 @@ Vue.prototype.$http = axios
 Vue.prototype.$bus = bus
 // Vue.prototype.$steem = steem
 
-Vue.prototype.$apiserver = 'http://119.205.235.236:3001'
+Vue.prototype.$apiserver = 'https://steemlite.cafe24.com'
 
 
 

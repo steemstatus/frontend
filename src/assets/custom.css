@@ -78,6 +78,12 @@
 /* Account CARD END */
 
 
+.list-group-item{
+  border-color: rgba(0, 0, 0, 0.05) !important;
+  /*border: 0px;*/
+}
+
+
 .font-08 {
   font-size:0.8rem;
 }
@@ -439,6 +445,40 @@
     bottom: 100%;
   }
 }
+
+
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 10px;
+    border-radius: 5px;   
+    background: #ecf0f1;
+    outline: none;
+    opacity: 0.8;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%; 
+    background: #3498DB;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #3498DB;
+    cursor: pointer;
+}
+
+
 
 
 

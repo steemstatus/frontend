@@ -1,6 +1,6 @@
 <template>
 
-<div class="accounts container" >
+<div class="account container" >
 
 
 <ul class="list-group mb-2" >
@@ -14,7 +14,7 @@
 <div class="card mb-2" >
   <div class="card-body">
     <div class="row" >
-      <div class="col-lg-4 col-md-6" >
+      <div class="col-sm-4" >
         Sort By
         <div class="form-group">
           <select class="custom-select" v-model="sortBy" v-on:change="sortByChange">
@@ -24,7 +24,7 @@
           </select>
         </div>
       </div>
-      <div class="col-lg-4 col-md-6" >
+      <div class="col-sm-4" >
         User Name
         <div class="form-group">
           <div class="input-group mb-3">
@@ -37,7 +37,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-4 col-md-6" >
+      <div class="col-sm-4" >
         <ul class="list-group" >
           <li class="list-group-item d-flex justify-content-between align-items-center " >
             Accounts
@@ -57,7 +57,6 @@
 <div v-if="showSpinner" class="sk-spinner sk-spinner-pulse"></div>
 
 
-
 <div class="card mb-2" v-for="(value, index) in users">
 
   <div class="card-body">
@@ -68,49 +67,12 @@
         <img class="pthumbnail" :src="value.profile_image" @error="imageLoadOnError(value)">
         <b>{{value.name}} </b>
       </span>
-      <span class="text-right" v-bind:class="{ 'alive-2': value.lastVoteTime>7 && value.lastVoteTime<=31, 'alive-1': value.lastVoteTime<=7, 'alive-3': value.lastVoteTime>31}"  > <a :href="'https://steemit.com/@'+value.name" target="_blank">steemit</a>  ●</span>
-
+      <span class="text-right" v-bind:class="{ 'alive-2': value.lastVoteTime>7 && value.lastVoteTime<=31, 'alive-1': value.lastVoteTime<=7, 'alive-3': value.lastVoteTime>31}"  >●</span>
     </div>
 
 
 
     <p>{{value.about}}</p>
-    <p style="margin-top: -10px"><a :href="value.website" target="_blank">{{value.website}}</a></p>
-
-
-
-<div class="row mb-3">
-
-
-<div class="   col-sm-12" >
-  <div class="card-body" style="background: #fff">
-
-    <div class="row">
-
-  <div class="col-sm-6" >
-    <div class="text-right">dasasdas</div>
-    <input type="range" class="slider" id="customRange1">
-  </div>
-
-  <div class="col-sm-6" >
-    <div class="text-right">dasasdas</div>
-    <div class="progress">
-      <div class="progress-bar progress-bar-striped progress-bar-animated bg-info bg-opacity8" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
-    </div>
-  </div>
-
-    </div>
-
-  </div>
-</div>
-
-</div>
-
-
-
-
-
-
 
     <div class="row" >
       <div class="col-sm-6" >
@@ -133,10 +95,6 @@
           <li class="list-group-item d-flex justify-content-between align-items-center">
               Reputation
               <span>{{ value.reputation}} </span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-              Created
-              <span>{{ value.created}} </span>
           </li>
         </ul>  
       </div>
@@ -192,7 +150,7 @@ var moment = require('moment');
 
 
 export default {
-  name: 'accounts',
+  name: 'account',
   data () {
     return {
       allUsers : [],
@@ -217,20 +175,13 @@ export default {
 
   created: function () {
 
-    // this.userName = this.$route.params.id || ''
-    // let page = this.userName !==undefined ? '@'+this.userName : 'accounts'
-    // console.log(page)
+    this.userName = this.$route.params.id || ''
 
-    localStorage.setItem('topMenu','accounts')
-    this.$store.commit('topMenu','accounts')
-
-
+    this.$store.commit('topMenu','account')
     this.sortBy = localStorage.getItem('sortBy') || 'total_steem'
     this.showSpinner = true;
 
     this.getGlobalProperties();
-
-
   },
 
   methods: {
@@ -242,7 +193,11 @@ export default {
             this.globalProperties.time = result.data.time
             this.globalProperties.vestingValue =  result.data.vesting_value
           
+          if(this.userName!==''){
+            this.nameEnter()
+          }else{
             this.getUsers(1);
+          }
 
 
         })
@@ -260,24 +215,6 @@ export default {
         });
 
     },
-
-    getVoting(){
-
-      if(this.userName===''){
-        return;
-      }
-
-
-      this.$http.get(this.$apiserver+'/users/' + this.userName + '/voting')
-      .then((result) => {
-        console.log(result.data)
-      })
-      .catch(error => {
-        console.log(error.response)
-      });
-
-    },
-
 
     getUsers: function (page) {
 
@@ -343,7 +280,7 @@ export default {
 
             value.fromNow = moment(value.last_updated).fromNow();
 
-            // console.log(value)
+            
 
             var tempimg = 'https://steemit-production-imageproxy-thumbnail.s3.amazonaws.com/U5ds8wePoj1V1DoRR4bzzKUARNiywjp_128x128';
 
@@ -362,10 +299,7 @@ export default {
 
                   value.profile_image = json_metadata.profile.profile_image !== undefined? json_metadata.profile.profile_image : tempimg;
 
-                  // console.log(json_metadata.profile)
-
                   value.about = json_metadata.profile.about || ''
-                  value.website = json_metadata.profile.website || ''
                 }else{
                   value.profile_image = tempimg;
                 }
@@ -447,9 +381,6 @@ export default {
 
         return
       }
-
-
-    // this.getVoting();
 
 
       this.showSpinner = true;
