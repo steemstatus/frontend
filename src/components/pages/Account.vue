@@ -3,130 +3,120 @@
 <div class="account container" >
 
 
-<ul class="list-group mb-2" >
-  <li class="d-flex justify-content-between steem-card-title">
-      <p></p>
-      <span><small>Synced daily.</small></span>
-  </li>
-</ul>
 
 
-<div class="card mb-2" >
-  <div class="card-body">
-    <div class="row" >
-      <div class="col-sm-4" >
-        Sort By
-        <div class="form-group">
-          <select class="custom-select" v-model="sortBy" v-on:change="sortByChange">
-            <option value="total_steem"  >Total STEEM</option>
-            <option value="active_steem" >Effective SP</option>
-            <option value="num_reputation" >Reputation</option>
-          </select>
+<div class="clearfix " style="padding-top: 15px">
+	<!-- <div class="form-group float-right">
+      <div class="input-group ">
+        <div class="">
+          <input type="text" class="form-control " id="inputGroupFile02" placeholder="User Name" v-model="userName" v-on:keyup="nameKeyup" v-on:keydown.enter="nameEnter">
+        </div>
+        <div class="input-group-append">
+          <span class="btn btn-secondary" id="" v-on:click="nameEnter">Search</span>
         </div>
       </div>
-      <div class="col-sm-4" >
-        User Name
-        <div class="form-group">
-          <div class="input-group mb-3">
-            <div class="">
-              <input type="text" class="form-control " id="inputGroupFile02" v-model="userName" v-on:keyup="nameKeyup" v-on:keydown.enter="nameEnter">
-            </div>
-            <div class="input-group-append">
-              <span class="btn btn-secondary" id="" v-on:click="nameEnter">Search</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-4" >
-        <ul class="list-group" >
-          <li class="list-group-item d-flex justify-content-between align-items-center " >
-            Accounts
-            <div class="text-right">
+    </div> -->
 
-              <span>{{ toLS(accountCount.block_user_count)}} <small>steem</small></span><br/>
-              <span>{{ toLS(accountCount.db_user_count)}} <small>status</small></span>
-            </div>
-          </li>
-        </ul>  
+  <div class="form-group float-right xs-invisible">
+    <div class="input-group ">
+      <input type="text" class="form-control " placeholder="account">
+      <div class="input-group-append ">
+        <span class="btn btn-secondary ">Search</span>
       </div>
     </div>
   </div>
+
+	<img class="float-left" style="margin-top: -10px" src="https://robohash.org/koinbot?size=55x55" >
+	<h3 class="float-left" style="margin-top: 10px;margin-left: 2px"> koinbot</h3>
+
+
 </div>
 
+
+
+
+
+<div class="row">
+          <div class="col-md-4">
+            <div class="bs-component">
+              <ul class="list-group">
+              	<li class="list-group-item ">
+
+					<h5 class="text-center"> 35,000 SP</h5>
+					<div class="text-center text-muted font-weight-light2" style="margin-top:-10px"><small>16</small></div>
+
+                </li>
+
+                <li class="list-group-item  ">
+				    <div>
+					    <div class="text-right">dasasdas</div>
+					    <input type="range" class="slider" id="customRange1">
+				    </div>
+				    <div>
+				    	<div class="text-right">dasasdas</div>
+					    <div class="progress">
+					      <div class="progress-bar progress-bar-striped progress-bar-animated bg-info bg-opacity8" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+					    </div>
+				    </div>
+                </li>
+                
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                	<div class="col-md-6">
+                		<div class="text-center">1</div>
+                		<div class="text-center text-muted text-xs"><small>Age</small></div>
+					</div>
+                	<div class="col-md-6">
+                		<div class="text-center">1</div>
+                		<div class="text-center text-muted"><small>Reputation</small></div>
+                	</div>
+                  
+                </li>
+
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="bs-component">
 
 <div v-if="showSpinner" class="sk-spinner sk-spinner-pulse"></div>
 
 
-<div class="card mb-2" v-for="(value, index) in users">
+              
+            	<div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+                  <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">List group item heading</h5>
+                    <small>3 days ago</small>
+                  </div>
+                  <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                  <small>Donec id elit non mi porta.</small>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                  <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">List group item heading</h5>
+                    <small class="text-muted">3 days ago</small>
+                  </div>
+                  <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                  <small class="text-muted">Donec id elit non mi porta.</small>
+                </a>
+              </div>
 
-  <div class="card-body">
 
-    <div class="row justify-content-between" style="padding: 0.1rem 1rem 0.5rem 1rem">
-      <span>
-        <b>#{{value.rank}}</b>
-        <img class="pthumbnail" :src="value.profile_image" @error="imageLoadOnError(value)">
-        <b>{{value.name}} </b>
-      </span>
-      <span class="text-right" v-bind:class="{ 'alive-2': value.lastVoteTime>7 && value.lastVoteTime<=31, 'alive-1': value.lastVoteTime<=7, 'alive-3': value.lastVoteTime>31}"  >●</span>
-    </div>
+<div class="text-right"><small>Robots lovingly delivered by Robohash.org</small></div>
 
 
-
-    <p>{{value.about}}</p>
-
-    <div class="row" >
-      <div class="col-sm-6" >
-        <ul class="list-group" >
-          <li class="list-group-item d-flex justify-content-between align-items-center " >
-            Calculated
-            <div class="text-right">
-              <span>{{ toLS(toFixed0(value.total_steem))}} <small>STEEM (total)</small></span><br/>
-              <span>{{ toNumber(value.active_steem)}} <small>SP (effective)</small></span>
             </div>
-          </li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            Balances
-            <div class="text-right">
-              <span>{{ toNumber(value.balance)}} <small>STEEM</small></span><br/>
-              <span>{{ toNumber(value.sp)}} <small>SP</small></span><br/>
-              <span>{{ toNumber(value.sbd_balance)}} <small>SBD</small></span>
-            </div>
-          </li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-              Reputation
-              <span>{{ value.reputation}} </span>
-          </li>
-        </ul>  
-      </div>
-      <div class="col-sm-6" >
-        <ul class="list-group">
-
-          <li v-if="value.witnesses_voted_for!='0'" class="list-group-item d-flex justify-content-between align-items-center">
-            Witnesses voted count
-            <span >{{value.witnesses_voted_for}}</span>
-          </li>
-          <li v-if="value.witnessVotes!=''" class="list-group-item d-flex justify-content-between align-items-center">
-            <span ><small>{{value.witnessVotes}}</small></span>
-          </li>
+          </div>
+          
+        </div>
 
 
-          <li v-if="value.witnesses_voted_for=='0'" class="list-group-item d-flex justify-content-between align-items-center">
-            Proxy
-              <span >{{value.proxy}} </span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            Proxied
-              <span >{{value.proxied}} <small>STEEM</small></span>
-          </li>
 
 
-        </ul>  
-      </div>
-    </div>
-  </div>
-</div>
 
 
+
+<!-- 
 <div>
   <nav aria-label="Page navigation example" style="margin-top:22px">
     <ul class="pagination justify-content-center">
@@ -135,7 +125,7 @@
       </li>
     </ul>
   </nav>
-</div>
+</div> -->
 
 
 <br/>
@@ -177,7 +167,9 @@ export default {
 
     this.userName = this.$route.params.id || ''
 
+	localStorage.setItem('topMenu','account')
     this.$store.commit('topMenu','account')
+
     this.sortBy = localStorage.getItem('sortBy') || 'total_steem'
     this.showSpinner = true;
 

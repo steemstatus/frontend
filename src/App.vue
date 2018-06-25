@@ -24,13 +24,6 @@ export default {
   },
   created: function () {
 
-    console.log('app vie created------------------')
-
-    console.log(this.$route.params.id)
-
-    if(this.$route.params.id){
-      localStorage.setItem('topMenu','@'+this.$route.params.id)
-    }
 
     let page = localStorage.getItem('topMenu') || ''
     this.$router.push(

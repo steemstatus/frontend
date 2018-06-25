@@ -12,6 +12,11 @@
 }
 
 
+.font-weight-light2 {
+  font-weight: 10 !important;
+}
+
+
 
 /* Witness*/
 
@@ -320,6 +325,17 @@
    /* inline-block space fix */
    /*margin-right:-4px;*/
 }
+
+
+
+@media (max-width: 576px) {
+  .xs-invisible {
+    display:none
+  }
+}
+
+
+
 
 
 @media (min-width: 576px) {

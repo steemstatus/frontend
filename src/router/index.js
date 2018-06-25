@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Accounts from '@/components/pages/Accounts'
+import Rank from '@/components/pages/Rank'
 import Account from '@/components/pages/Account'
 
 import Steem from '@/components/pages/Steem'
@@ -26,9 +26,9 @@ export default new Router({
       component: Steem
     },
     {
-      path: '/accounts',
-      name: 'accounts',
-      component: Accounts
+      path: '/rank',
+      name: 'rank',
+      component: Rank
     },
     {
       path: '/witness',
@@ -37,6 +37,11 @@ export default new Router({
     },
     {
       path: '/@:id',
+      name: 'account',
+      component: Account
+    },
+    {
+      path: '/account',
       name: 'account',
       component: Account
     }

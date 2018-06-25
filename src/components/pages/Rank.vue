@@ -1,6 +1,6 @@
 <template>
 
-<div class="accounts container" >
+<div class="rank container" >
 
 
 <ul class="list-group mb-2" >
@@ -76,41 +76,6 @@
 
     <p>{{value.about}}</p>
     <p style="margin-top: -10px"><a :href="value.website" target="_blank">{{value.website}}</a></p>
-
-
-
-<div class="row mb-3">
-
-
-<div class="   col-sm-12" >
-  <div class="card-body" style="background: #fff">
-
-    <div class="row">
-
-  <div class="col-sm-6" >
-    <div class="text-right">dasasdas</div>
-    <input type="range" class="slider" id="customRange1">
-  </div>
-
-  <div class="col-sm-6" >
-    <div class="text-right">dasasdas</div>
-    <div class="progress">
-      <div class="progress-bar progress-bar-striped progress-bar-animated bg-info bg-opacity8" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
-    </div>
-  </div>
-
-    </div>
-
-  </div>
-</div>
-
-</div>
-
-
-
-
-
-
 
     <div class="row" >
       <div class="col-sm-6" >
@@ -192,7 +157,7 @@ var moment = require('moment');
 
 
 export default {
-  name: 'accounts',
+  name: 'rank',
   data () {
     return {
       allUsers : [],
@@ -221,8 +186,8 @@ export default {
     // let page = this.userName !==undefined ? '@'+this.userName : 'accounts'
     // console.log(page)
 
-    localStorage.setItem('topMenu','accounts')
-    this.$store.commit('topMenu','accounts')
+    localStorage.setItem('topMenu','rank')
+    this.$store.commit('topMenu','rank')
 
 
     this.sortBy = localStorage.getItem('sortBy') || 'total_steem'
