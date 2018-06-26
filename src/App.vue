@@ -26,6 +26,11 @@ export default {
 
 
     let page = localStorage.getItem('topMenu') || ''
+
+    if(this.$route.params.id){
+      page = '@'+this.$route.params.id
+    }
+
     this.$router.push(
         {
           path: '/'+page,

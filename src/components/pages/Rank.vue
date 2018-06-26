@@ -302,6 +302,8 @@ export default {
 
     createUsers(data){
 
+      console.log('createUsers')
+
           let tmpList = [];
 
           for(let value of data.data){
@@ -359,8 +361,6 @@ export default {
 
             
           }
-
-          console.log('c user finished')
 
           this.allUsers = data.data
           this.users = tmpList

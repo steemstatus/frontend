@@ -19,20 +19,23 @@
 
   <div class="form-group float-right xs-invisible">
     <div class="input-group ">
-      <input type="text" class="form-control " placeholder="account">
+      <input type="text" class="form-control " placeholder="account" v-model="userNameInput" v-on:keydown.enter="nameEnter">
       <div class="input-group-append ">
-        <span class="btn btn-secondary ">Search</span>
+        <span class="btn btn-secondary " v-on:click="nameEnter">Search</span>
       </div>
     </div>
   </div>
 
-	<img class="float-left" style="margin-top: -10px" src="https://robohash.org/koinbot?size=55x55" >
-	<h3 class="float-left" style="margin-top: 10px;margin-left: 2px"> koinbot</h3>
+	<img class="float-left" style="margin-top: -10px" :src="'https://robohash.org/'+account.name+'?size=55x55'" >
+	<h3 class="float-left" style="margin-top: 10px;margin-left: 2px"> {{account.name}}</h3>
 
 
 </div>
 
-
+		  		<!-- account.effective_sp = Number(effective_sp.toFixed(0)).toLocaleString()
+		  		account.vesting_shares_sp = vesting_shares * this.globalProperties.vestingValue
+		  		account.received_vesting_shares_sp = received_vesting_shares * this.globalProperties.vestingValue
+		  		account.delegated_vesting_shares_sp = delegated_vesting_shares * this.globalProperties.vestingValue -->
 
 
 
@@ -42,8 +45,8 @@
               <ul class="list-group">
               	<li class="list-group-item ">
 
-					<h5 class="text-center"> 35,000 SP</h5>
-					<div class="text-center text-muted font-weight-light2" style="margin-top:-10px"><small>16</small></div>
+					<h5 class="text-center"> {{account.effective_sp}} SP</h5>
+					<div class="text-center text-muted font-weight-light2" style="margin-top:-10px"><small>{{toNumber(account.vesting_shares_sp)}} + {{toNumber(account.received_vesting_shares_sp)}} - {{toNumber(account.delegated_vesting_shares_sp)}}</small></div>
 
                 </li>
 
@@ -62,11 +65,11 @@
                 
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                 	<div class="col-md-6">
-                		<div class="text-center">1</div>
+                		<div class="text-center">{{account.age}}</div>
                 		<div class="text-center text-muted text-xs"><small>Age</small></div>
 					</div>
                 	<div class="col-md-6">
-                		<div class="text-center">1</div>
+                		<div class="text-center">{{account.repu}}</div>
                 		<div class="text-center text-muted"><small>Reputation</small></div>
                 	</div>
                   
@@ -82,24 +85,124 @@
 
 
               
-            	<div class="list-group">
-                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
-                  <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">List group item heading</h5>
-                    <small>3 days ago</small>
-                  </div>
-                  <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                  <small>Donec id elit non mi porta.</small>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                  <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">List group item heading</h5>
-                    <small class="text-muted">3 days ago</small>
-                  </div>
-                  <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                  <small class="text-muted">Donec id elit non mi porta.</small>
-                </a>
-              </div>
+            	<ul class="list-group" >
+  <li class="list-group-item clearfix" v-for="(value, index) in history">
+
+
+  	<div style="margin:-9px" v-if="value[1].op[0]=='vote'">
+	    <span class="float-right">{{toStr5(value[1].trx_id)}}</span>
+	    <div>ddd</div>
+  	</div>
+
+  	<div style="margin:-9px" v-if="value[1].op[0]=='claim_reward_balance'">
+	    <span class="float-right">{{toStr5(value[1].trx_id)}}</span>
+	    <div>ddd</div>
+  	</div>
+
+  	<div style="margin:-9px" v-if="value[1].op[0]=='account_witness_vote'">
+	    <span class="float-right">{{toStr5(value[1].trx_id)}}</span>
+	    <div>ddd</div>
+  	</div>
+
+  	<div style="margin:-9px" v-if="value[1].op[0]=='feed_publish'">
+	    <span class="float-right">{{toStr5(value[1].trx_id)}}</span>
+	    <div>ddd</div>
+  	</div>
+
+  	<div style="margin:-9px" v-if="value[1].op[0]=='curation_reward'">
+	    <span class="float-right">{{toStr5(value[1].trx_id)}}</span>
+	    <div>ddd</div>
+  	</div>
+
+  	<div style="margin:-9px" v-if="value[1].op[0]=='transfer'">
+	    <span class="float-right">{{toStr5(value[1].trx_id)}}</span>
+	    <div>ddd</div>
+  	</div>
+
+  	<div style="margin:-9px" v-if="value[1].op[0]=='transfer_to_vesting'">
+	    <span class="float-right">{{toStr5(value[1].trx_id)}}</span>
+	    <div>ddd</div>
+  	</div>
+
+  	<div style="margin:-9px" v-if="value[1].op[0]=='delegate_vesting_shares'">
+	    <span class="float-right">{{toStr5(value[1].trx_id)}}</span>
+	    <div>ddd</div>
+  	</div>
+
+  	<div style="margin:-9px" v-if="value[1].op[0]=='producer_reward'">
+	    <span class="float-right">{{toStr5(value[1].trx_id)}}</span>
+	    <div>ddd</div>
+  	</div>
+
+  	<div style="margin:-9px" v-if="value[1].op[0]=='author_reward'">
+	    <span class="float-right">{{toStr5(value[1].trx_id)}}</span>
+	    <div>ddd</div>
+  	</div>
+
+  	<div style="margin:-9px" v-if="value[1].op[0]=='custom_json'">
+	    <span class="float-right">{{toStr5(value[1].trx_id)}}</span>
+	    <div>ddd</div>
+  	</div>
+
+  	<div style="margin:-9px" v-if="value[1].op[0]=='withdraw_vesting'">
+	    <span class="float-right">{{toStr5(value[1].trx_id)}}</span>
+	    <div>ddd</div>
+  	</div>
+
+  	<div style="margin:-9px" v-if="value[1].op[0]=='fill_vesting_withdraw'">
+	    <span class="float-right">{{toStr5(value[1].trx_id)}}</span>
+	    <div>ddd</div>
+  	</div>
+
+  	<div style="margin:-9px" v-if="value[1].op[0]=='account_witness_proxy'">
+	    <span class="float-right">{{toStr5(value[1].trx_id)}}</span>
+	    <div>ddd</div>
+  	</div>
+
+  	<div style="margin:-9px" v-if="value[1].op[0]=='comment'">
+	    <span class="float-right">{{toStr5(value[1].trx_id)}}</span>
+	    <div>ddd</div>
+  	</div>
+
+  	<div style="margin:-9px" v-if="value[1].op[0]=='comment_benefactor_reward'">
+	    <span class="float-right">{{toStr5(value[1].trx_id)}}</span>
+	    <div>ddd</div>
+  	</div>
+
+  	<div style="margin:-9px" v-if="value[1].op[0]=='comment_options'">
+	    <span class="float-right">{{toStr5(value[1].trx_id)}}</span>
+	    <div>ddd</div>
+  	</div>
+
+  	<div style="margin:-9px" v-if="value[1].op[0]=='pow'">
+	    <span class="float-right">{{toStr5(value[1].trx_id)}}</span>
+	    <div>ddd</div>
+  	</div>
+
+  	<div style="margin:-9px" v-if="value[1].op[0]=='account_update'">
+	    <span class="float-right">{{toStr5(value[1].trx_id)}}</span>
+	    <div>ddd</div>
+  	</div>
+
+  	<div style="margin:-9px" v-if="value[1].op[0]=='account_create'">
+	    <span class="float-right">{{toStr5(value[1].trx_id)}}</span>
+	    <div>ddd</div>
+  	</div>
+
+  	<div style="margin:-9px" v-if="value[1].op[0]=='account_create_with_delegation'">
+	    <span class="float-right">{{toStr5(value[1].trx_id)}}</span>
+	    <div>ddd</div>
+  	</div>
+
+
+
+	    {{value[1].op[0]}}
+
+
+
+
+  </li>
+</ul>
 
 
 <div class="text-right"><small>Robots lovingly delivered by Robohash.org</small></div>
@@ -109,9 +212,6 @@
           </div>
           
         </div>
-
-
-
 
 
 
@@ -143,15 +243,12 @@ export default {
   name: 'account',
   data () {
     return {
-      allUsers : [],
-      users : [],
-      page : 1,
-      pageList : [1,2,3,4,5],
-      sortBy : 'total_steem',
       userName : '',
+      userNameInput : '',
       showSpinner : false,
       globalProperties : {vestingValue:0},
-      accountCount:{}
+      account:{name:''},
+      history:[]
     }
   },
   computed: {
@@ -165,13 +262,19 @@ export default {
 
   created: function () {
 
-    this.userName = this.$route.params.id || ''
+  	if(this.$route.path=='/account'){
+  		this.userName = localStorage.getItem('accountName') || ''
+  	}else{
+  		this.userName = this.$route.params.id || ''
+  		localStorage.setItem('accountName',this.userName)
+  	}
 
+  	console.log(this.userName)
+
+    
 	localStorage.setItem('topMenu','account')
     this.$store.commit('topMenu','account')
 
-    this.sortBy = localStorage.getItem('sortBy') || 'total_steem'
-    this.showSpinner = true;
 
     this.getGlobalProperties();
   },
@@ -186,83 +289,88 @@ export default {
             this.globalProperties.vestingValue =  result.data.vesting_value
           
           if(this.userName!==''){
-            this.nameEnter()
-          }else{
-            this.getUsers(1);
+            this.getAccounts()
           }
 
-
         })
         .catch(error => {
           console.log(error.response)
         });
 
 
-      this.$http.get(this.$apiserver+'/usercount')
-        .then((result) => {
-          this.accountCount=result.data
-        })
-        .catch(error => {
-          console.log(error.response)
-        });
+    },
+
+    nameEnter(){
+
+    	this.userName = this.userNameInput
+    	this.userNameInput = ''
+
+    	localStorage.setItem('accountName',this.userName)
+    	this.getAccounts()
 
     },
 
-    getUsers: function (page) {
 
-        let url = ''
-        if(page===1){
-          url = this.$apiserver+'/users?page=1&sort='+this.sortBy
-        }else{
+    getAccounts(){
 
-          let nexrOrPrev = this.page < page ? '/next' : '/prev'
-          let targetUserName = ''
+	    this.showSpinner = true;
 
 
+		this.$steem.api.getAccounts([this.userName], (err, result)=> {
+		  	if(result){
+		  		let account = result[0]
 
-          if(nexrOrPrev=='/next'){
+		  		let vesting_shares = parseFloat(account.vesting_shares)
+		  		let received_vesting_shares = parseFloat(account.received_vesting_shares)
+		  		let delegated_vesting_shares = parseFloat(account.delegated_vesting_shares)
 
-            let index  = (page-this.page)*15-1
+		        let vesting = vesting_shares + received_vesting_shares - delegated_vesting_shares
+		        let effective_sp = vesting * this.globalProperties.vestingValue
 
-            console.log(index)
 
-            targetUserName = this.allUsers[index].name
+		  		account.effective_sp = Number(effective_sp.toFixed(0)).toLocaleString()
+		  		account.vesting_shares_sp = vesting_shares * this.globalProperties.vestingValue
+		  		account.received_vesting_shares_sp = received_vesting_shares * this.globalProperties.vestingValue
+		  		account.delegated_vesting_shares_sp = delegated_vesting_shares * this.globalProperties.vestingValue
 
-          }else{
-            targetUserName = this.allUsers[0].name
-          }
 
-          console.log(targetUserName)
+		        let now = new Date(this.globalProperties.time);
+		        let createdTime = new Date(account.created);
+		        let difference = now.getTime() - createdTime.getTime();
+		        let calSecond = Math.floor(difference/1000);
+		        let fromNowHour = calSecond/60/60;
+		        let fromNowYear = fromNowHour/24/365;
 
-          url = this.$apiserver+'/users/'+targetUserName+nexrOrPrev + '?sort='+this.sortBy
-        }
+		        account.age = fromNowYear.toFixed(1)
+		        account.repu = this.$steem.formatter.reputation(account.reputation);
 
-        this.initPage(page)
-        this.showSpinner = true;
 
-        this.$http.get(url)
-        .then((result) => {
-          // console.log(result.data)
-          this.createUsers(result.data);
-          this.showSpinner = false;
+		  		// console.log(fromNowYear)
 
-        })
-        .catch(error => {
-          console.log(error.response)
-          this.showSpinner = false;
-        });
+
+		  		this.account=account
+		  	}
+
+		  	this.showSpinner = false;
+		});
+
+
+		this.$steem.api.getAccountHistory(this.userName, -1, 100, (err, result) => {
+			if(result){
+
+				result.sort(function(a, b) {
+                    return b[0] - a[0];
+                });
+
+
+				this.history = result
+			}
+
+			this.showSpinner = false;
+		});
+
 
     },
-
-    updateClick(name){
-      this.$http.get(this.$apiserver+'/users/'+name + '?sort='+this.sortBy)
-      .then((result) => {
-            this.getUsers()
-      })
-      .catch(error => {
-      });      
-    },
-
 
     createUsers(data){
 
@@ -318,109 +426,10 @@ export default {
               tmpList.push(value)
             }
 
-            
           }
-
-          console.log('c user finished')
 
           this.allUsers = data.data
           this.users = tmpList
-    },
-
-    imageLoadOnError(value){
-      value.profile_image = 'https://steemit-production-imageproxy-thumbnail.s3.amazonaws.com/U5ds8wePoj1V1DoRR4bzzKUARNiywjp_128x128'
-    },
-
-
-    pageClick(value){
-      this.getUsers(value)
-    },
-
-    preNextClick(value){
-      if(value=='prev'){
-        if(this.page > 1){
-          this.page-=1
-          this.getUsers(this.page)
-        }
-      }else{
-        this.page+=1
-        this.getUsers(this.page)
-      }
-    },
-
-    sortByChange(){
-      localStorage.setItem('sortBy',this.sortBy)
-
-      console.log(this.userName.length)
-
-      if(this.userName.length){
-        this.nameEnter()
-      }else{
-        this.getUsers(1)
-      }
-      
-      
-    },
-
-    nameKeyup(){
-      console.log('keyup')
-    },
-
-    nameEnter(){
-
-      if(this.userName==''){
-        this.getUsers(1);
-
-        return
-      }
-
-
-      this.showSpinner = true;
-      this.$http.get(this.$apiserver+'/users/'+this.userName + '?sort='+this.sortBy)
-      .then((result) => {
-        if(result.data.message){
-          console.log('show snack')
-          this.$bus.$emit('showSnackbar', result.data.message)
-        }
-
-        this.showSpinner = false;
-        this.initPage(result.data.page)
-        this.createUsers(result.data)
-      })
-      .catch(error => {
-        this.showSpinner = false;
-      });   
-
-    },
-
-    initPage(page){
-       if(page){
-          this.page = page;
-          this.createPageList(page)
-        }
-
-        $('html,body').scrollTop(0);
-
-
-
-    },
-
-
-
-
-    createPageList(value){
-      if(value>2){
-        this.pageList = []
-        for(let i = 1; i>0; i--){
-          this.pageList.push(value-i)
-        }
-        this.pageList.push(value)
-        for(let i = 1; i<=3; i++){
-          this.pageList.push(value+i)
-        }
-      }else{
-        this.pageList = [1,2,3,4,5]
-      }
     },
 
     fromNow(value){
@@ -451,6 +460,10 @@ export default {
 
     toLS(val){
       return Number(val).toLocaleString()
+    },
+
+    toStr5:function(val){
+    	return val.substring(0,6)
     },
 
     toB:function(val){
