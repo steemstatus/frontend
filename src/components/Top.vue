@@ -3,15 +3,12 @@
 <div class="" >
 
   <div class="navbar2">
-    <router-link id="m1" to="/" v-bind:class="{ 'text-primary-mutable': $store.state.topMenu == 'steemstatus' }">STEEM STATUS</router-link>
+    <router-link id="m1" to="/" v-bind:class="{ 'text-primary-mutable': $store.state.topMenu == 'steemstatus' }">STEEMST</router-link>
 
-    <router-link id="m2" to="/account" style="margin-left: 20px;margin-right: -5px" v-bind:class="{ 'text-primary-mutable': $store.state.topMenu == 'account' }">Account</router-link>
+    <a href="javascript:void(0);" class="text-muted" id="m2" style="margin-left: 20px;margin-right: -5px" v-bind:class="{ 'text-primary-mutable': $store.state.topMenu == 'accounts' }" v-on:click="accountClick()">Accounts</a>
 
 
     <router-link id="m3" to="/witness" style="margin-right: -5px" v-bind:class="{ 'text-primary-mutable': $store.state.topMenu == 'witness' }">Witness</router-link>
-
-    <router-link id="m4" to="/rank" style="margin-right: -5px" v-bind:class="{ 'text-primary-mutable': $store.state.topMenu == 'rank' }">Rank</router-link>
-
 
 
     <hr id="h1" style="margin-top:50px;margin-bottom:1px;width: 100%"/>
@@ -32,6 +29,24 @@ export default {
   },
 
   methods: {
+
+    accountClick(){
+      console.log('acc click')
+      let accountName = localStorage.getItem('accountName')
+      console.log('accountName : ' + accountName)
+      // this.$router.push('/'+topMenu)
+
+      if(accountName!==null){
+        this.$router.push('/@'+accountName)
+      }else{
+        this.$router.push('/accounts')
+      }
+
+
+
+    }
+
+
   }
 }
 </script>

@@ -26,16 +26,20 @@ export default {
 
 
     let page = localStorage.getItem('topMenu') || ''
+    console.log('page : ' + page)
 
-    if(this.$route.params.id){
-      page = '@'+this.$route.params.id
+    if(this.$route.path=='/'){
+      if(page=='account'){
+        page = '@' + localStorage.getItem('accountName')
+      }
+
+      this.$router.push(
+          {
+            path: '/'+page,
+          }
+       )
     }
 
-    this.$router.push(
-        {
-          path: '/'+page,
-        }
-     )
   },
 
   methods: {

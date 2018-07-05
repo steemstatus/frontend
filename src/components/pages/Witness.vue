@@ -133,7 +133,7 @@ export default {
 				let version_num = item.running_version.replace(/\./gi, ""); 
 				version_num = Number(version_num)
 
-				if(version_num<=190){
+				if(version_num<=194){
 					item.active = false
 				}
 			}

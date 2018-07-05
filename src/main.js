@@ -6,6 +6,8 @@ import Vuex from 'vuex'
 import App from './App'
 import router from './router'
 import axios from 'axios'
+// import VueLazyload from 'vue-lazyload'
+
 
 import steem from 'steem'
 
@@ -34,6 +36,8 @@ Vue.prototype.$apiserver = 'https://steemlite.cafe24.com'
 
 
 Vue.use(Vuex)
+// Vue.use(VueLazyload)
+
 
 
 

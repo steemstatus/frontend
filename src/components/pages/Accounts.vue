@@ -1,6 +1,6 @@
 <template>
 
-<div class="rank container" >
+<div class="accounts container" >
 
 
 <ul class="list-group mb-2" >
@@ -65,8 +65,8 @@
     <div class="row justify-content-between" style="padding: 0.1rem 1rem 0.5rem 1rem">
       <span>
         <b>#{{value.rank}}</b>
-        <img class="pthumbnail" :src="value.profile_image" @error="imageLoadOnError(value)">
-        <b>{{value.name}} </b>
+        <img class="pthumbnail ml-1" :src="value.profile_image" @error="imageLoadOnError(value)">
+        <router-link class="ml-1" :to="'/@'+value.name"><b> {{value.name}} </b></router-link>
       </span>
       <span class="text-right" v-bind:class="{ 'alive-2': value.lastVoteTime>7 && value.lastVoteTime<=31, 'alive-1': value.lastVoteTime<=7, 'alive-3': value.lastVoteTime>31}"  > <a :href="'https://steemit.com/@'+value.name" target="_blank">steemit</a>  ●</span>
 
@@ -134,7 +134,7 @@
 </div>
 
 
-<div>
+<div v-if="!showSpinner">
   <nav aria-label="Page navigation example" style="margin-top:22px">
     <ul class="pagination justify-content-center">
       <li class="page-item"  v-for="(value, index) in pageList" v-bind:class="{ active: page==value }">
@@ -157,7 +157,7 @@ var moment = require('moment');
 
 
 export default {
-  name: 'rank',
+  name: 'accounts',
   data () {
     return {
       allUsers : [],
@@ -186,8 +186,9 @@ export default {
     // let page = this.userName !==undefined ? '@'+this.userName : 'accounts'
     // console.log(page)
 
-    localStorage.setItem('topMenu','rank')
-    this.$store.commit('topMenu','rank')
+    localStorage.removeItem('accountName')
+    localStorage.setItem('topMenu','accounts')
+    this.$store.commit('topMenu','accounts')
 
 
     this.sortBy = localStorage.getItem('sortBy') || 'total_steem'
@@ -312,7 +313,7 @@ export default {
 
             // console.log(value)
 
-            var tempimg = 'https://steemit-production-imageproxy-thumbnail.s3.amazonaws.com/U5ds8wePoj1V1DoRR4bzzKUARNiywjp_128x128';
+            var tempimg = 'https://steemst.com/images/steem_thumb.png';
 
             if(value.json_metadata==='' || value.json_metadata.length===2){
                 value.profile_image = tempimg;
@@ -367,7 +368,7 @@ export default {
     },
 
     imageLoadOnError(value){
-      value.profile_image = 'https://steemit-production-imageproxy-thumbnail.s3.amazonaws.com/U5ds8wePoj1V1DoRR4bzzKUARNiywjp_128x128'
+      value.profile_image = 'https://steemst.com/images/steem_thumb.png'
     },
 
 
@@ -442,9 +443,6 @@ export default {
         }
 
         $('html,body').scrollTop(0);
-
-
-
     },
 
 
